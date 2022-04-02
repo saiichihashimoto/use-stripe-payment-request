@@ -264,7 +264,7 @@ export const usePaymentRequestShippingAddress = (
   paymentRequest: PaymentRequest | undefined,
   options: Omit<PaymentRequestUpdateDetails, "status">,
   onShippingAddressChangeRaw?: (
-    value: PaymentRequestShippingAddress
+    shippingAddress: PaymentRequestShippingAddress
   ) => MaybePromise<PaymentRequestUpdateDetailsStatus>
 ) => {
   const onShippingAddressChange = useMemo(
@@ -291,7 +291,7 @@ export const usePaymentRequestShippingOption = (
   paymentRequest: PaymentRequest | undefined,
   options: Omit<PaymentRequestUpdateDetails, "status">,
   onShippingOptionChangeRaw?: (
-    value: PaymentRequestShippingOption
+    shippingOption: PaymentRequestShippingOption
   ) => MaybePromise<PaymentRequestUpdateDetailsStatus>
 ) => {
   const onShippingOptionChange = useMemo(
@@ -342,14 +342,14 @@ const usePaymentRequestPaymentEvent = <EventName extends keyof PaymentEvents>(
  */
 export const usePaymentRequestPaymentMethod = (
   paymentRequest: PaymentRequest | undefined,
-  onPaymentResponseChange?: (
-    value: Omit<PaymentRequestPaymentMethodEvent, "complete">
+  onPaymentMethodChange?: (
+    paymentResponse: Omit<PaymentRequestPaymentMethodEvent, "complete">
   ) => MaybePromise<PaymentRequestCompleteStatus>
 ) =>
   usePaymentRequestPaymentEvent(
     "paymentmethod",
     paymentRequest,
-    onPaymentResponseChange
+    onPaymentMethodChange
   );
 
 /**
@@ -358,15 +358,10 @@ export const usePaymentRequestPaymentMethod = (
 
 export const usePaymentRequestSource = (
   paymentRequest: PaymentRequest | undefined,
-  onPaymentResponseChange?: (
-    value: Omit<PaymentRequestSourceEvent, "complete">
+  onSourceChange?: (
+    paymentResponse: Omit<PaymentRequestSourceEvent, "complete">
   ) => MaybePromise<PaymentRequestCompleteStatus>
-) =>
-  usePaymentRequestPaymentEvent(
-    "source",
-    paymentRequest,
-    onPaymentResponseChange
-  );
+) => usePaymentRequestPaymentEvent("source", paymentRequest, onSourceChange);
 
 /**
  * @link https://stripe.com/docs/js/payment_request/events/on_token
@@ -374,12 +369,7 @@ export const usePaymentRequestSource = (
 
 export const usePaymentRequestToken = (
   paymentRequest: PaymentRequest | undefined,
-  onPaymentResponseChange?: (
-    value: Omit<PaymentRequestTokenEvent, "complete">
+  onTokenChange?: (
+    paymentResponse: Omit<PaymentRequestTokenEvent, "complete">
   ) => MaybePromise<PaymentRequestCompleteStatus>
-) =>
-  usePaymentRequestPaymentEvent(
-    "token",
-    paymentRequest,
-    onPaymentResponseChange
-  );
+) => usePaymentRequestPaymentEvent("token", paymentRequest, onTokenChange);
