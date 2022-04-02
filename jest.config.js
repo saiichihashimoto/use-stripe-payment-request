@@ -5,7 +5,6 @@ const config = {
   preset: "ts-jest",
   rootDir: "src",
   testMatch: ["**/*.spec.ts"],
-  setupFilesAfterEnv: ["../jest.setup.ts"],
   testEnvironment: "node",
   clearMocks: true,
   moduleDirectories: ["node_modules"],

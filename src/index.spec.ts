@@ -1,3 +1,5 @@
+import "promise-any-polyfill";
+
 import EventEmitter from "events";
 
 import { beforeEach, describe, expect, it } from "@jest/globals";

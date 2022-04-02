@@ -20,6 +20,6 @@
     "jsx": "preserve",
     "strictNullChecks": true
   },
-  "include": ["src/**/*.ts", "./*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
