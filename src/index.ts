@@ -109,7 +109,7 @@ export const usePaymentRequest = (
       }
     },
     [
-      canMakePayment,
+      canMakePayment.value,
       currency,
       displayItems,
       open,
@@ -125,7 +125,7 @@ export const usePaymentRequest = (
     paymentRequest?.on("cancel", handler);
 
     return () => void paymentRequest?.off("cancel", handler);
-  }, [paymentRequest, setOpenRaw]);
+  }, [paymentRequest]);
 
   return [
     paymentRequest,
