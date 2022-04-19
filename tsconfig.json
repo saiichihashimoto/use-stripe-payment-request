@@ -19,7 +19,9 @@
     "isolatedModules": true,
     "sourceMap": true,
     "jsx": "preserve",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noErrorTruncation": true,
+    "noUncheckedIndexedAccess": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
