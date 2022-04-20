@@ -191,6 +191,54 @@ describe("usePaymentRequest", () => {
     expect(paymentRequest.abort).toHaveBeenCalled();
   });
 
+  it("setOpen opens/updates once", async () => {
+    canMakePayment.mockReturnValueOnce(
+      Promise.resolve({
+        applePay: true,
+        googlePay: false,
+      })
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      usePaymentRequest(stripe, options)
+    );
+
+    await waitForNextUpdate();
+
+    act(() => result.current[1].setOpen(true));
+    isShowing.mockReturnValue(true);
+
+    act(() => result.current[1].setOpen(true));
+
+    expect(paymentRequest.update).toHaveBeenCalledTimes(1);
+    expect(paymentRequest.show).toHaveBeenCalledTimes(1);
+  });
+
+  it("setOpen aborts once", async () => {
+    canMakePayment.mockReturnValueOnce(
+      Promise.resolve({
+        applePay: true,
+        googlePay: false,
+      })
+    );
+
+    const { result, waitForNextUpdate } = renderHook(() =>
+      usePaymentRequest(stripe, options)
+    );
+
+    await waitForNextUpdate();
+
+    act(() => result.current[1].setOpen(true));
+    isShowing.mockReturnValue(true);
+
+    act(() => result.current[1].setOpen(false));
+    isShowing.mockReturnValue(false);
+
+    act(() => result.current[1].setOpen(false));
+
+    expect(paymentRequest.abort).toHaveBeenCalledTimes(1);
+  });
+
   it("closes when receiving cancel event", async () => {
     canMakePayment.mockReturnValueOnce(
       Promise.resolve({
